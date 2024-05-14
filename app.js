@@ -1,10 +1,9 @@
 const express = require("express");
 const app = express();
 const cookieParser = require("cookie-parser");
-const port = process.env.port || 443;
+const port = process.env.port || 80;
 const fs = require('fs');
 const http = require('http');
-const https = require('https');
 
 const pubKey = fs.readFileSync('/etc/letsencrypt/live/express718.ru/cert.pem');
 const privKey = fs.readFileSync('/etc/letsencrypt/live/express718.ru/privkey.pem');
@@ -49,6 +48,6 @@ let options = {
    pub: pubKey
 };
 
-https.createServer(options, app).listen(port)
+http.createServer(options, app).listen(port)
 
 
