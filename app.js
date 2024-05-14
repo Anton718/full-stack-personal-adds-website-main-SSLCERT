@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const cookieParser = require("cookie-parser");
-const port = process.env.port || 80;
+const port = process.env.port || 443;
 const fs = require('fs');
 const https = require('https');
 
