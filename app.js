@@ -5,9 +5,7 @@ const port = process.env.port || 443;
 const fs = require('fs');
 const https = require('https');
 
-const certFile = fs.readFileSync('/etc/letsencrypt/live/express718.ru/cert.pem');
 const keyFile = fs.readFileSync('/etc/letsencrypt/live/express718.ru/privkey.pem');
-const chain = fs.readFileSync('/etc/letsencrypt/live/express718.ru/chain.pem');
 const fullchain = fs.readFileSync('/etc/letsencrypt/live/express718.ru/fullchain.pem');
 
 
