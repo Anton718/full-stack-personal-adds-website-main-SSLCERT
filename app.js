@@ -1,12 +1,13 @@
 const express = require("express");
 const app = express();
 const cookieParser = require("cookie-parser");
-const port = process.env.port || 80;
+const port = process.env.port || 443;
 const fs = require('fs');
+const http = require('http');
 const https = require('https');
 
-const keyFile = fs.readFileSync('/etc/letsencrypt/live/express718.ru/privkey.pem');
-const fullchain = fs.readFileSync('/etc/letsencrypt/live/express718.ru/fullchain.pem');
+const pubKey = fs.readFileSync('/etc/letsencrypt/live/express718.ru/cert.pem');
+const privKey = fs.readFileSync('/etc/letsencrypt/live/express718.ru/privkey.pem');
 
 
 global.bodyParser = require("body-parser");
@@ -44,8 +45,8 @@ app.use((req, res) => {
 });
 
 let options = {
-   key: keyFile,
-   fullChain: fullchain
+   priv: privKey,
+   pub: pubKey
 };
 
 https.createServer(options, app).listen(port)
