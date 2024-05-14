@@ -5,7 +5,7 @@ const port = process.env.port || 80;
 const fs = require('fs');
 const http = require('http');
 
-const pubKey = fs.readFileSync('/etc/letsencrypt/live/express718.ru/cert.pem');
+const fullChain = fs.readFileSync('/etc/letsencrypt/live/express718.ru/fullchain.pem');
 const privKey = fs.readFileSync('/etc/letsencrypt/live/express718.ru/privkey.pem');
 
 
@@ -45,7 +45,7 @@ app.use((req, res) => {
 
 let options = {
    priv: privKey,
-   pub: pubKey
+   pub: fullChain
 };
 
 http.createServer(options, app).listen(port)
