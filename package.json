@@ -1,14 +1,14 @@
 {
   "name": "social-network",
-  "version": "2.0.0",
-  "description": "practising Express framework",
+  "version": "3.0.0",
+  "description": "for Express 718",
   "main": "app.js",
   "scripts": {
     "dev": "nodemon app.js",
     "start": "node app.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Anton",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",

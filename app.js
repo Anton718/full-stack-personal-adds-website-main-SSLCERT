@@ -7,6 +7,8 @@ const https = require('https');
 
 const certFile = fs.readFileSync('/etc/letsencrypt/live/express718.ru/cert.pem');
 const keyFile = fs.readFileSync('/etc/letsencrypt/live/express718.ru/privkey.pem');
+const chain = fs.readFileSync('/etc/letsencrypt/live/express718.ru/chain.pem');
+const fullchain = fs.readFileSync('/etc/letsencrypt/live/express718.ru/fullchain.pem');
 
 
 global.bodyParser = require("body-parser");
@@ -45,7 +47,9 @@ app.use((req, res) => {
 
 let options = {
    cert: certFile,
-   key: keyFile
+   key: keyFile,
+   chain: chain,
+   fullChain: fullchain
 };
 
 https.createServer(options, app).listen(port)
