@@ -44,9 +44,7 @@ app.use((req, res) => {
 });
 
 let options = {
-   cert: certFile,
    key: keyFile,
-   chain: chain,
    fullChain: fullchain
 };
 
