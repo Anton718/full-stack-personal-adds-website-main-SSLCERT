@@ -9,9 +9,9 @@ const https = require('https');
 
 
 // Certificate
-const privateKey = fs.readFileSync('/etc/letsencrypt/live/express718.ru/privkey.pem', 'utf8');
-const certificate = fs.readFileSync('/etc/letsencrypt/live/express718.ru/cert.pem', 'utf8');
-const ca = fs.readFileSync('/etc/letsencrypt/live/express718.ru/chain.pem', 'utf8');
+const privateKey = fs.readFileSync('/etc/letsencrypt/live/domain.com/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('/etc/letsencrypt/live/domain.com/cert.pem', 'utf8');
+const ca = fs.readFileSync('/etc/letsencrypt/live/domain.com/chain.pem', 'utf8');
 
 
 const credentials = {
@@ -39,7 +39,7 @@ const fileUpload = require("express-fileupload");
 
 app.set("view engine", "ejs");
 
-app.use(cookieParser("rwervterbj353jhbdkfhv"));
+app.use(cookieParser("XXXXXXXXXXXXXXXXXXXX"));
 app.use(express.static(__dirname, { dotfiles: 'allow' } ));
 app.use(indexGetRoutes);
 app.use(messagesRoutes);
