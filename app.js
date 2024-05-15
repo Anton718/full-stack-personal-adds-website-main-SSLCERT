@@ -1,13 +1,23 @@
 const express = require("express");
 const app = express();
 const cookieParser = require("cookie-parser");
-const port = process.env.port || 80;
+const httpPort = process.env.port || 80;
+const httpsPort = process.env.port || 443;
 const fs = require('fs');
 const http = require('http');
+const https = require('https');
 
-const fullChain = fs.readFileSync('/etc/letsencrypt/live/express718.ru/fullchain.pem');
-const privKey = fs.readFileSync('/etc/letsencrypt/live/express718.ru/privkey.pem');
 
+// Certificate
+const privateKey = fs.readFileSync('/etc/letsencrypt/live/express718.ru/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('/etc/letsencrypt/live/express718.ru/cert.pem', 'utf8');
+const ca = fs.readFileSync('/etc/letsencrypt/live/express718.ru/chain.pem', 'utf8');
+
+const credentials = {
+	key: privateKey,
+	cert: certificate,
+	ca: ca
+};
 
 global.bodyParser = require("body-parser");
 global.urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -29,6 +39,7 @@ const fileUpload = require("express-fileupload");
 app.set("view engine", "ejs");
 
 app.use(cookieParser("rwervterbj353jhbdkfhv"));
+app.use(express.static(__dirname, { dotfiles: 'allow' } ));
 app.use(indexGetRoutes);
 app.use(messagesRoutes);
 app.use(blogRoutes);
@@ -43,11 +54,16 @@ app.use((req, res) => {
   res.status(404).send("404 Page does not exist");
 });
 
-let options = {
-   priv: privKey,
-   pub: fullChain
-};
 
-http.createServer(options, app).listen(port)
+const httpServer = http.createServer(app);
+const httpsServer = https.createServer(credentials, app);
+
+httpServer.listen(httpPort, () => {
+	console.log(`HTTP Server running on port ${httpPort}`);
+});
+
+httpsServer.listen(httpsPort, () => {
+	console.log(`HTTPS Server running on port ${httpsPort}`);
+});
 
 
