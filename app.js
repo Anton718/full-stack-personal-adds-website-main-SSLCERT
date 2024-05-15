@@ -40,7 +40,6 @@ const fileUpload = require("express-fileupload");
 app.set("view engine", "ejs");
 
 app.use(cookieParser("XXXXXXXXXXXXXXXXXXXX"));
-app.use(express.static(__dirname, { dotfiles: 'allow' } ));
 app.use(indexGetRoutes);
 app.use(messagesRoutes);
 app.use(blogRoutes);
